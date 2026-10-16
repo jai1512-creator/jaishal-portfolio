@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Jaishal Joshi — Web Developer &amp; Creative Builder</title>
+    <script>
+      // Single Page App redirect for static hosting (GitHub Pages, custom domains, etc.)
+      var path = window.location.pathname;
+      var segments = path.split('/').filter(Boolean);
+      // If deployed on a GitHub Pages project subpath (e.g. username.github.io/repo/...),
+      // preserve the first path segment (the repo name).
+      var isSubpath = window.location.hostname.endsWith('github.io') && segments.length > 1;
+      var basePath = isSubpath ? '/' + segments[0] + '/' : '/';
+      var routePath = isSubpath ? '/' + segments.slice(1).join('/') : path;
+
+      var query = window.location.search ? '&' + window.location.search.slice(1) : '';
+      var hash = window.location.hash || '';
+      var target = basePath + '?p=' + encodeURIComponent(routePath) + query + hash;
+      window.location.replace(target);
+    </script>
+  </head>
+  <body style="background:#0A0A0A;color:#F0E2CF;font-family:sans-serif;display:grid;place-items:center;height:100vh;margin:0">
+    <p>Loading...</p>
+  </body>
+</html>
