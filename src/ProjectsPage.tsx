@@ -169,15 +169,56 @@ export default function ProjectsPage({
       </div>
 
       <div className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center px-4 pb-8 pt-6 sm:px-8">
-        {/* Navigation header with Back link */}
-        <header className="flex w-full items-center justify-between">
-          <a
-            href={homeHref}
-            onClick={handleReturnHome}
-            className="inline-flex items-center gap-2 rounded-full border border-[#D7E2EA]/20 bg-white/[0.04] px-4 py-2 text-xs font-mono uppercase tracking-[0.18em] text-[#F0E2CF] backdrop-blur-md transition-all duration-300 hover:border-[#C6A467]/60 hover:text-[#C6A467] hover:bg-[#C6A467]/10"
+        {/* Navigation header with Back link & Navbar */}
+        <header className="flex w-full items-center justify-between gap-4">
+          <nav
+            aria-label="Projects page navigation"
+            className="inline-flex items-center gap-1 sm:gap-2 p-1.5 sm:p-2 rounded-full transition-all duration-300"
+            style={{
+              background: 'rgba(29, 28, 26, 0.65)',
+              backdropFilter: 'blur(16px)',
+              WebkitBackdropFilter: 'blur(16px)',
+              border: '1px solid rgba(240, 226, 207, 0.18)',
+              boxShadow: 'inset 0 1px 1px rgba(240, 226, 207, 0.25), 0 8px 24px rgba(0, 0, 0, 0.4)',
+            }}
           >
-            <ArrowLeft size={14} /> PORTFOLIO
-          </a>
+            <button
+              type="button"
+              onClick={handleReturnHome}
+              className="flex items-center gap-1.5 px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium uppercase tracking-wider text-[#F0E2CF]/70 hover:text-[#F0E2CF] hover:bg-[#F0E2CF]/10 transition-all duration-200"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Home</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => (onNavigate ? onNavigate('#about') : window.location.assign('/#about'))}
+              className="hidden sm:inline-block px-3 py-1.5 rounded-full text-xs font-medium uppercase tracking-wider text-[#F0E2CF]/70 hover:text-[#F0E2CF] hover:bg-[#F0E2CF]/10 transition-all duration-200"
+            >
+              About
+            </button>
+            <button
+              type="button"
+              onClick={() => (onNavigate ? onNavigate('#services') : window.location.assign('/#services'))}
+              className="hidden sm:inline-block px-3 py-1.5 rounded-full text-xs font-medium uppercase tracking-wider text-[#F0E2CF]/70 hover:text-[#F0E2CF] hover:bg-[#F0E2CF]/10 transition-all duration-200"
+            >
+              Services
+            </button>
+            <button
+              type="button"
+              onClick={() => (onNavigate ? onNavigate('#projects') : window.location.assign('/#projects'))}
+              className="px-3 sm:px-4 py-1.5 rounded-full text-xs sm:text-sm font-medium uppercase tracking-wider text-[#F0E2CF]/70 hover:text-[#F0E2CF] hover:bg-[#F0E2CF]/10 transition-all duration-200"
+            >
+              Projects
+            </button>
+            <button
+              type="button"
+              onClick={() => (onNavigate ? onNavigate('/contact') : window.location.assign('/contact'))}
+              className="hidden sm:inline-block px-3 py-1.5 rounded-full text-xs font-medium uppercase tracking-wider text-[#F0E2CF]/70 hover:text-[#F0E2CF] hover:bg-[#F0E2CF]/10 transition-all duration-200"
+            >
+              Contact
+            </button>
+          </nav>
 
           <span className="text-xs font-mono tracking-[0.2em] text-[#B5A18A]/80 uppercase">
             {pad(active + 1)} &mdash; {pad(count)}

@@ -26,13 +26,13 @@ function useRoute() {
     const redirectPath = searchParams.get('p') || '';
     const base = getBase();
 
-    if (redirectPath.endsWith('/contact') || redirectPath === '/contact' || p.endsWith('/contact') || p === '/contact' || h === '#/contact' || h === '#contact') {
+    if (redirectPath.endsWith('/contact') || redirectPath === '/contact' || p.endsWith('/contact') || p === '/contact' || h === '#/contact') {
       if (redirectPath) {
         window.history.replaceState({}, '', (base + '/contact') || '/contact');
       }
       return '/contact';
     }
-    if (redirectPath.endsWith('/projects') || redirectPath === '/projects' || p.endsWith('/projects') || p === '/projects' || h === '#/projects' || h === '#projects') {
+    if (redirectPath.endsWith('/projects') || redirectPath === '/projects' || p.endsWith('/projects') || p === '/projects' || h === '#/projects') {
       if (redirectPath) {
         window.history.replaceState({}, '', (base + '/projects') || '/projects');
       }
@@ -52,6 +52,23 @@ function useRoute() {
     };
   }, []);
 
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash && hash.startsWith('#') && hash !== '#/projects' && hash !== '#/contact') {
+      let attempts = 0;
+      const checkAndScroll = () => {
+        const el = document.querySelector(hash);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+        } else if (attempts < 25) {
+          attempts++;
+          setTimeout(checkAndScroll, 40);
+        }
+      };
+      setTimeout(checkAndScroll, 80);
+    }
+  }, []);
+
   const navigate = (to: string) => {
     const base = getBase();
     if (to === '/contact') {
@@ -63,15 +80,26 @@ function useRoute() {
       setRoute('/projects');
       window.scrollTo(0, 0);
     } else {
-      window.history.pushState({}, '', (base + '/') || '/');
-      setRoute('/');
-      if (to && to !== '/' && to.startsWith('#')) {
-        setTimeout(() => {
+      const isAnchor = Boolean(to && to !== '/' && to.startsWith('#'));
+      if (route !== '/') {
+        window.history.pushState({}, '', (base + '/') || '/');
+        setRoute('/');
+      }
+      if (isAnchor) {
+        let attempts = 0;
+        const maxAttempts = 30;
+        const checkAndScroll = () => {
           const el = document.querySelector(to);
-          el?.scrollIntoView({ behavior: 'smooth' });
-        }, 60);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          } else if (attempts < maxAttempts) {
+            attempts++;
+            setTimeout(checkAndScroll, 40);
+          }
+        };
+        requestAnimationFrame(checkAndScroll);
       } else {
-        window.scrollTo(0, 0);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
   };
@@ -429,10 +457,8 @@ function Hero({ onNavigate }: { onNavigate: (to: string) => void }) {
             key={l}
             href={h}
             onClick={(e) => {
-              if (h === '/contact') {
-                e.preventDefault();
-                onNavigate('/contact');
-              }
+              e.preventDefault();
+              onNavigate(h);
             }}
           >
             {l}
