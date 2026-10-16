@@ -860,7 +860,7 @@ html, body, #root { background: #0C0C0C; font-family: 'Kanit', sans-serif; }
 @media (prefers-reduced-motion:reduce) { .hv-ch { transition:none; } .hv-ch.is-live { fill:#F0E2CF; stroke:#F0E2CF; } .hv-flow { display:none !important; } }
 /* Desktop: the portrait's head/torso centre (60.7% across the image, 77.5% wide at --ph tall) sits on the midpoint between the two words (--hv-gap, set from the headline fit; 55.1% before it runs). */
 .hv-portrait { --ph:min(90vh,76vw); position:absolute; z-index:3; bottom:0; left:calc(var(--hv-gap, 55.14%) - var(--ph) * .4704); height:var(--ph); pointer-events:none; }
-.hv-portrait img { height:100%; width:auto; display:block; filter:drop-shadow(0 0 1px rgba(240,226,207,.45)) drop-shadow(0 0 18px rgba(0,0,0,.6)) contrast(1.06); }
+.hv-portrait img { height:100%; width:auto; display:block; filter:drop-shadow(0 0 22px rgba(0,0,0,.75)) contrast(1.06); }
 /* Taglines sit below the headline's actual bottom edge (its height follows viewport width, not height), never above their old spot. */
 .hv { --hv-tag-top:max(66%, calc(27% + 19.5vw + clamp(2.5rem, 5vw, 6rem))); }
 .hv-left { position:absolute; z-index:4; left:3.2vw; top:var(--hv-tag-top); }
